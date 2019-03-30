@@ -1,0 +1,9 @@
+version: "3"
+services:
+  no-ip:
+    image: coppit/no-ip
+    container_name: no-ip
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ${SHARE_PATH}/no-ip:/config
+    restart: always

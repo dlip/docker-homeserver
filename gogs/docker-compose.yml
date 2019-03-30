@@ -1,0 +1,19 @@
+version: "3"
+networks:
+  docker-homeserver:
+    external: true
+services:
+  gogs:
+    image: gogs/gogs
+    container_name: gogs
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:gogs.${SITE_BASE_DOMAIN}"
+      - "traefik.port=3000"
+    ports:
+      - ${PORT_PREFIX}02:3000
+    volumes:
+      - ${SHARE_PATH}/gogs:/data
+    networks:
+      - docker-homeserver
+    restart: always
