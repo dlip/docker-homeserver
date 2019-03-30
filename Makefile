@@ -15,6 +15,8 @@ restart-%:
 down-%:
 	@cd $* && docker-compose down
 
+down: $(patsubst %, down-%, $(SERVICES))
+
 logs-%:
 	@cd $* && docker-compose logs -f
 
@@ -25,3 +27,5 @@ up: $(patsubst %, up-%, $(SERVICES))
 
 stop-%:
 	@cd $* && docker-compose stop
+
+stop: $(patsubst %, stop-%, $(SERVICES))

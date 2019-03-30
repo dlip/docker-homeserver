@@ -10,8 +10,8 @@ services:
       - ${PORT_PREFIX}01:8080 # webui
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./config/traefik.toml:/traefik.toml
-      - ./config/.htpasswd:/.htpasswd
+      - ${SHARE_PATH}/traefik/traefik.toml:/traefik.toml
+      - ${SHARE_PATH}/traefik/.htpasswd:/.htpasswd
       - ${SHARE_PATH}/traefik/acme.json:/acme.json
     command: --api
     networks:
