@@ -1,0 +1,26 @@
+version: "3"
+networks:
+  docker-homeserver:
+    external: true
+services:
+  qbittorrent:
+    image: markusmcnugen/qbittorrentvpn
+    container_name: qbittorrent
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:qbittorrent.${SITE_BASE_DOMAIN}"
+      - "traefik.port=8080"
+    privileged: true
+    volumes:
+      - ${SHARE_PATH}/qbittorrent/config:/config
+      - ${MEDIA_PATH1}/downloads/qbittorrent:/downloads
+      - ${MEDIA_PATH1}:/d
+      - ${MEDIA_PATH2}:/f
+    env_file: ${SHARE_PATH}/qbittorrent/.env
+    ports:
+      - 8080:8080
+      - "8999:8999"
+      - "8999:8999/udp"
+    networks:
+      - docker-homeserver
+    restart: always
