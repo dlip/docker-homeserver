@@ -1,0 +1,19 @@
+version: "3"
+networks:
+  docker-homeserver:
+    external: true
+services:
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    volumes:
+      - ${SHARE_PATH}/jackett:/config
+    ports:
+      - ${PORT_PREFIX}05:9117
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Australia/Sydney
+    networks:
+      - docker-homeserver
+    restart: always
