@@ -1,0 +1,21 @@
+version: "3"
+networks:
+  docker-homeserver:
+    external: true
+services:
+  muximux:
+    image: linuxserver/muximux
+    container_name: muximux
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:muximux.${SITE_BASE_DOMAIN}"
+      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
+    volumes:
+      - ${SHARE_PATH}/muximux:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Sydney
+    networks:
+      - docker-homeserver
+    restart: always
